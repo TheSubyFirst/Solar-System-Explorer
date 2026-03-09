@@ -86,7 +86,8 @@ const state = {
   tourActive: false,
   tourIndex: -1,
   tourTimer: null,
-  hasStartedTour: false
+  hasStartedTour: false,
+  hasDismissedTip: false
 };
 
 function clamp(value, min, max) {
@@ -899,13 +900,14 @@ function updateInfoPanel(body) {
     closePanelBtn.classList.add("hidden");
     panelContent.classList.add("hidden");
     panelEmpty.classList.remove("hidden");
-    floatingTip.classList.remove("hidden");
+    floatingTip.classList.toggle("hidden", state.hasDismissedTip);
     return;
   }
 
   closePanelBtn.classList.remove("hidden");
   panelEmpty.classList.add("hidden");
   panelContent.classList.remove("hidden");
+  state.hasDismissedTip = true;
   floatingTip.classList.add("hidden");
   renderPanelPreview(body);
   details.type.textContent = body.type;
@@ -1152,6 +1154,8 @@ function init() {
 }
 
 window.addEventListener("load", init);
+
+
 
 
 
